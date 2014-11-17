@@ -12,6 +12,18 @@ __534____
 _13_____5
 STR
 
+PUZZLE_2 = <<-STR
+97___1_24
+_4_359___
+__8_4__3_
+_____68_1
+_________
+1_45_____
+_5__9_2__
+___837_1_
+31_2___48
+STR
+
 SOLVED = <<-STR
 569438172
 328197654
@@ -25,11 +37,12 @@ SOLVED = <<-STR
 STR
 
 RSpec.describe Puzzle do
-  let(:puzzle) { Puzzle.new(parse_puzzle_data(PUZZLE)) }
+  let(:puzzle_1) { Puzzle.new(parse_puzzle_data(PUZZLE)) }
+  let(:puzzle_2) { Puzzle.new(parse_puzzle_data(PUZZLE_2)) }
 
   describe "#pretty_print" do
     it "prints puzzle" do
-      expect(puzzle.pretty_print).to eq PUZZLE.chomp
+      expect(puzzle_1.pretty_print).to eq PUZZLE.chomp
     end
   end
 
@@ -37,7 +50,7 @@ RSpec.describe Puzzle do
     let(:solved_puzzle) { Puzzle.new(parse_puzzle_data(SOLVED)) }
 
     it "returns true if all tiles are filled" do
-      expect(puzzle.solved?).to be_falsey
+      expect(puzzle_1.solved?).to be_falsey
     end
 
     it "returns false if there are unfilled tiles" do
@@ -47,8 +60,13 @@ RSpec.describe Puzzle do
 
   describe "#solve!" do
     it "fills in tiles untill puzzle is solved" do
-      puzzle.solve!
-      expect(puzzle).to be_solved
+      puzzle_1.solve!
+      expect(puzzle_1).to be_solved
+    end
+
+    it "solves difficult puzzles" do
+      puzzle_2.solve!
+      expect(puzzle_2).to be_solved
     end
   end
 end
