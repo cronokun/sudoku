@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/sudoku'
+
+file_path = ARGV.shift
+
+unless file_path && File.exist?(file_path)
+  puts "Usage: bin/sudoku file/with/puzzles [--debug]" and exit
+end
+
+PuzzleParser.parse_and_build(file_path).each do |puzzle|
+  puzzle.solve!
+  puts puzzle.pretty_print, '=' * 9 if puzzle.solved?
+end
