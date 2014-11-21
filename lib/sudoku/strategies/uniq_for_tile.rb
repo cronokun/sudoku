@@ -2,33 +2,12 @@
 # file a tile with it. Suggestions calculated by sum of available
 # values for row, column and block for the given tile.
 
-class UniqByTileStrategy
-  attr_reader :puzzle
-
-  def self.reduce(puzzle)
-    strategy = self.new(puzzle)
-    strategy.reduce!
-    strategy.reduced?
-  end
-
-  def initialize(puzzle)
-    @puzzle = puzzle
-    @was_reduced = false
-  end
-
+class UniqByTileStrategy < BaseStrategy
   def reduce!
     puzzle.empty_tiles.each { |tile| fill_suggestions(tile) }
   end
 
-  def reduced?
-    @was_reduced
-  end
-
   private
-
-  def mark_as_reduced!
-    @was_reduced = true
-  end
 
   def fill_suggestions(tile)
     get_suggestions_for_tile(tile).tap do |suggestions|
