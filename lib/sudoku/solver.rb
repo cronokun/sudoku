@@ -28,12 +28,10 @@ class Solver
 
     unless was_reduced
       was_reduced = fill_uniq_tiles!(:row)
-      debug "Reduced by rows: #{was_reduced.inspect}"
     end
 
     unless was_reduced
       was_reduced = fill_uniq_tiles!(:column)
-      debug "Reduced by columns: #{was_reduced.inspect}"
     end
 
     unless was_reduced
