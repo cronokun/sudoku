@@ -9,6 +9,12 @@ unless file_path && File.exist?(file_path)
 end
 
 PuzzleParser.parse_and_build(file_path).each do |puzzle|
-  puzzle.solve!
-  puts puzzle.pretty_print, '=' * 9 if puzzle.solved?
+  begin
+    puzzle.solve!
+  rescue Solver::CanNotSolveError => e
+    puts "Can't solve this puzzle",
+         '=' * 9
+  else
+    puts puzzle.pretty_print, '=' * 9 if puzzle.solved?
+  end
 end

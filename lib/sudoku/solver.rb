@@ -1,4 +1,6 @@
 class Solver
+  CanNotSolveError = Class.new(StandardError)
+
   attr_reader :puzzle
 
   def initialize(puzzle)
@@ -36,7 +38,7 @@ class Solver
 
     unless was_reduced
       dump!
-      fail "Can't solve puzzle"
+      raise CanNotSolveError, "Can't solve puzzle"
     end
   end
 
